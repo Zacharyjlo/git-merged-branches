@@ -1,13 +1,13 @@
-get_current_branch() {
+function get_current_branch() {
   git rev-parse --abbrev-ref HEAD
 }
 
-get_merged_branches() {
+function get_merged_branches() {
   local branch=$1
   git branch --merged $branch | sed 's/^[ *]*//'
 }
 
-list_unique_merged_branches() {
+function list_unique_merged_branches() {
   current_branch=$(get_current_branch)
   echo "Current branch: $current_branch"
 
