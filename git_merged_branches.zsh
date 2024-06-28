@@ -27,5 +27,3 @@ list_unique_merged_branches() {
     echo $branch
   done
 }
-
-alias merged_branches="list_unique_merged_branches"
