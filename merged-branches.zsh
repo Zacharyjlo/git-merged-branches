@@ -27,3 +27,7 @@ function list_unique_merged_branches() {
     echo $branch
   done
 }
+
+# Add alias for easy use
+alias mb="list_unique_merged_branches"
+
