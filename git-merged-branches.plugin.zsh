@@ -1,1 +1,1 @@
-alias mb='$ZSH/custom/plugins/git-merged-branches/git-merged-branches.zsh'
+alias mb='$ZSH/custom/plugins/git-merged-branches/merged-branches.zsh'
