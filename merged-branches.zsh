@@ -8,22 +8,23 @@ function get_merged_branches() {
 }
 
 function list_unique_merged_branches() {
+  git fetch --all --prune --quiet
+
   current_branch=$(get_current_branch)
   echo "Current branch: $current_branch"
 
-  merged_into_current=($(get_merged_branches $current_branch))
-  merged_into_main=($(get_merged_branches main))
+  merged_into_current=($(git branch -r --merged origin/$current_branch | sed 's|origin/||g' | sed 's/^[ *]*//'))
+  merged_into_main=($(git branch -r --merged origin/main | sed 's|origin/||g' | sed 's/^[ *]*//'))
 
-  # Find branches merged into current branch but not into main or the current branch itself
   unique_branches=()
-  for branch in $merged_into_current; do
-    if [[ ! " ${merged_into_main[@]} " =~ " ${branch} " ]] && [[ $branch != $current_branch ]]; then
+  for branch in "${merged_into_current[@]}"; do
+    if [[ ! " ${merged_into_main[*]} " =~ " ${branch} " ]] && [[ $branch != $current_branch ]]; then
       unique_branches+=($branch)
     fi
   done
 
   echo "Branches merged into $current_branch but not into main:"
-  for branch in $unique_branches; do
+  for branch in "${unique_branches[@]}"; do
     echo $branch
   done
 }
